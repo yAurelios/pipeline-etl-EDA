@@ -21,41 +21,41 @@
 ## Bloco 2 | Conhecer a fonte e definir a pergunta
  
 ### Passos
-- [ ] Carreguem cada fonte e executem `shape`, `dtypes`, `head()` e a contagem de nulos por coluna.
-- [ ] Identifiquem a chave que liga as fontes (se houver mais de uma) e a coluna de data (se houver).
-- [ ] Escrevam, no topo do notebook, UMA pergunta de negócio em uma frase. Ela será respondida pela camada Gold.
-- [ ] Desenhem no papel o fluxo fonte → Bronze → Silver → Gold, indicando quais fontes e colunas cada camada usa.
+- [x] Carreguem cada fonte e executem `shape`, `dtypes`, `head()` e a contagem de nulos por coluna.
+- [x] Identifiquem a chave que liga as fontes (se houver mais de uma) e a coluna de data (se houver).
+- [x] Escrevam, no topo do notebook, UMA pergunta de negócio em uma frase. Ela será respondida pela camada Gold.
+- [x] Desenhem no papel o fluxo fonte → Bronze → Silver → Gold, indicando quais fontes e colunas cada camada usa.
 ### Perguntas de verificação (respondam no notebook)
-- [ ] **P1.** Que tabela agregada responde à pergunta do grupo? Nessa tabela, uma linha representa o quê?
-- [ ] **P2.** Quais fontes ou colunas NÃO são necessárias para a pergunta? Por que deixá-las de fora é uma decisão da etapa de Extract?
+- [x] **P1.** Que tabela agregada responde à pergunta do grupo? Nessa tabela, uma linha representa o quê?
+- [x] **P2.** Quais fontes ou colunas NÃO são necessárias para a pergunta? Por que deixá-las de fora é uma decisão da etapa de Extract?
 - [ ] **P3.** Algum nulo encontrado pode estar carregando informação em vez de indicar erro? Se sim, qual é o nulo e o que ele significa?
 ---
  
 ## Bloco 3 | Extract: construir a Bronze
  
 ### Passos
-- [ ] Criem as pastas `data/bronze`, `data/silver` e `data/gold`.
-- [ ] Escrevam a função `extract(destino_bronze)`, que lê cada fonte necessária e grava na Bronze sem corrigir nada.
-- [ ] Acrescentem a cada arquivo da Bronze os metadados de controle: data e hora da extração e origem do dado.
-- [ ] Fonte em arquivo: leiam só as colunas necessárias. Fonte em banco: leiam com `sqlite3` e SQL. Fonte em API: tratem a paginação e façam o código parar com mensagem clara se o status da resposta for diferente de 200.
-- [ ] Executem `extract()` duas vezes seguidas e anotem o número de linhas da Bronze após cada execução.
+- [x] Criem as pastas `data/bronze`, `data/silver` e `data/gold`.
+- [x] Escrevam a função `extract(destino_bronze)`, que lê cada fonte necessária e grava na Bronze sem corrigir nada.
+- [x] Acrescentem a cada arquivo da Bronze os metadados de controle: data e hora da extração e origem do dado.
+- [x] Fonte em arquivo: leiam só as colunas necessárias. Fonte em banco: leiam com `sqlite3` e SQL. Fonte em API: tratem a paginação e façam o código parar com mensagem clara se o status da resposta for diferente de 200.
+- [x] Executem `extract()` duas vezes seguidas e anotem o número de linhas da Bronze após cada execução.
 ### Perguntas de verificação (respondam no notebook)
-- [ ] **P1.** Quantas linhas e colunas tem cada arquivo da Bronze? Os números batem com os da fonte original?
-- [ ] **P2.** O que aconteceu com o número de linhas na segunda execução? Se mudou, por que mudou e como corrigir?
-- [ ] **P3.** Por que a Bronze não deve receber nenhuma correção, mesmo que o grupo já conheça os problemas do dado?
+- [x] **P1.** Quantas linhas e colunas tem cada arquivo da Bronze? Os números batem com os da fonte original?
+- [] **P2.** O que aconteceu com o número de linhas na segunda execução? Se mudou, por que mudou e como corrigir?
+- [x] **P3.** Por que a Bronze não deve receber nenhuma correção, mesmo que o grupo já conheça os problemas do dado?
 - [ ] **P4.** Se a fonte sair do ar amanhã, o que do pipeline continua funcionando?
 ---
  
 ## Bloco 4 | Transform: construir a Silver
  
 ### Passos
-- [ ] Escrevam `transform(origem_bronze, destino_silver)`, lendo somente da Bronze e nunca da fonte original.
+- [x] Escrevam `transform(origem_bronze, destino_silver)`, lendo somente da Bronze e nunca da fonte original.
 - [ ] Padronizem tipos (datas como `datetime`, números como numéricos) e nomes de colunas.
-- [ ] Tratem duplicados, contando as linhas antes e depois.
-- [ ] Tratem os nulos coluna a coluna, decidindo entre remover, preencher ou manter. Registrem cada decisão em uma célula de texto no formato: *decidimos X porque Y*.
-- [ ] Tratem valores inválidos (negativos, datas impossíveis, categorias inconsistentes) e contem quantos registros cada regra afetou.
-- [ ] Se houver mais de uma fonte, façam a junção e comparem a soma da principal coluna numérica antes e depois do join.
-- [ ] Apliquem o filtro de escopo que a pergunta de negócio exigir, contando quantos registros ele descartou.
+- [x] Tratem duplicados, contando as linhas antes e depois.
+- [x] Tratem os nulos coluna a coluna, decidindo entre remover, preencher ou manter. Registrem cada decisão em uma célula de texto no formato: *decidimos X porque Y*.
+- [x] Tratem valores inválidos (negativos, datas impossíveis, categorias inconsistentes) e contem quantos registros cada regra afetou.
+- [x] Se houver mais de uma fonte, façam a junção e comparem a soma da principal coluna numérica antes e depois do join.
+- [x] Apliquem o filtro de escopo que a pergunta de negócio exigir, contando quantos registros ele descartou.
 ### Perguntas de verificação (respondam no notebook)
 - [ ] **P1.** Quantas linhas tem a Bronze e quantas tem a Silver? Explique a diferença usando cada uma das decisões tomadas.
 - [ ] **P2.** A soma da coluna principal bateu antes e depois da junção? Se não bateu, o que foi duplicado ou perdido?
@@ -67,11 +67,11 @@
 ## Bloco 5 | Load: construir a Gold
  
 ### Passos
-- [ ] Escrevam `load(origem_silver, destino_gold)`, que agrega a Silver para responder à pergunta do grupo.
-- [ ] Calculem pelo menos 2 métricas na agregação. Para contar entidades distintas, usem `nunique` e não `count`.
-- [ ] Gravem a Gold em Parquet.
-- [ ] Gravem também a Gold em uma tabela SQLite com `if_exists="replace"` e executem uma consulta SQL que responda à pergunta.
-- [ ] Comparem o tamanho em disco da Silver e da Gold.
+- [x] Escrevam `load(origem_silver, destino_gold)`, que agrega a Silver para responder à pergunta do grupo.
+- [x] Calculem pelo menos 2 métricas na agregação. Para contar entidades distintas, usem `nunique` e não `count`.
+- [x] Gravem a Gold em Parquet.
+- [x] Gravem também a Gold em uma tabela SQLite com `if_exists="replace"` e executem uma consulta SQL que responda à pergunta.
+- [x] Comparem o tamanho em disco da Silver e da Gold.
 ### Perguntas de verificação (respondam no notebook)
 - [ ] **P1.** Qual é a resposta da pergunta de negócio? Mostrem o resultado (o top 5 ou o valor encontrado).
 - [ ] **P2.** Quantas linhas tem a Gold e quantas tem a Silver? O que se perde na agregação e por que isso é aceitável?
@@ -83,13 +83,13 @@
 ## Bloco 6 | Load: modelagem dimensional
  
 ### Passos
-- [ ] Escrevam em uma frase o grão da tabela fato do grupo, no formato: *cada linha representa um(a) ____*.
-- [ ] Identifiquem na Silver quais colunas descrevem o contexto (quem, o quê, onde, quando) e quais são medidas numéricas.
+- [x] Escrevam em uma frase o grão da tabela fato do grupo, no formato: *cada linha representa um(a) ____*.
+- [x] Identifiquem na Silver quais colunas descrevem o contexto (quem, o quê, onde, quando) e quais são medidas numéricas.
 - [ ] Criem a `dim_tempo`, com uma linha por data e colunas de ano, mês, trimestre e dia da semana.
 - [ ] Criem pelo menos mais uma dimensão (por exemplo produto, cliente, zona ou região), com uma linha por membro e uma chave substituta própria, diferente da chave original. Se o dataset tiver poucas dimensões naturais, criem a `dim_tempo` e uma segunda dimensão definida pelo grupo, justificando a escolha.
 - [ ] Criem a tabela fato apenas com as chaves substitutas das dimensões e as medidas numéricas, sem repetir texto descritivo.
 - [ ] Gravem as dimensões e a fato em Parquet e em SQLite, com chave primária nas dimensões e chaves estrangeiras na fato.
-- [ ] Respondam à pergunta de negócio do grupo com um JOIN entre a fato e as dimensões e comparem o resultado com o da Gold agregada.
+- [x] Respondam à pergunta de negócio do grupo com um JOIN entre a fato e as dimensões e comparem o resultado com o da Gold agregada.
 - [ ] Acrescentem a construção do modelo dimensional à função `load()`, para que `pipeline()` o gere automaticamente.
 ### Perguntas de verificação (respondam no notebook)
 - [ ] **P1.** Qual é o grão da tabela fato? Como o grupo garantiu que ele foi respeitado, ou seja, que não há duplicidade dentro do grão?
@@ -102,10 +102,10 @@
 ## Bloco 7 | Costurar o pipeline
  
 ### Passos
-- [ ] Escrevam a função `pipeline()`, que chama `extract`, `transform` e `load` nessa ordem.
+- [x] Escrevam a função `pipeline()`, que chama `extract`, `transform` e `load` nessa ordem.
 - [ ] Antes de cada etapa, verifiquem se a entrada existe. Se não existir, parem com uma mensagem que diga qual etapa anterior está faltando.
-- [ ] Façam cada etapa gravar uma linha em um CSV de histórico, com etapa, horário, duração em segundos, linhas lidas e linhas escritas. Meçam o tempo com `time.perf_counter()`.
-- [ ] Testem a dependência: apaguem a Silver e chamem apenas `load()`.
+- [x] Façam cada etapa gravar uma linha em um CSV de histórico, com etapa, horário, duração em segundos, linhas lidas e linhas escritas. Meçam o tempo com `time.perf_counter()`.
+- [x] Testem a dependência: apaguem a Silver e chamem apenas `load()`.
 - [ ] Prova final: apaguem toda a pasta `data`, executem `pipeline()` uma única vez e comparem a Gold nova com a anterior.
 - [ ] Executem `pipeline()` duas vezes seguidas e confirmem que o resultado não muda.
 ### Perguntas de verificação (respondam no notebook)
@@ -119,12 +119,12 @@
 ## Bloco 8 | Carga incremental
  
 ### Passos
-- [ ] Dividam a Bronze em duas partes usando uma coluna de data (ou faixas de linhas, se não houver data): uma carga inicial com cerca de 80% dos registros e uma carga nova com o restante.
-- [ ] Reconstruam o pipeline apenas com a carga inicial e anotem o número de linhas de cada camada e o resultado da Gold.
+- [x] Dividam a Bronze em duas partes usando uma coluna de data (ou faixas de linhas, se não houver data): uma carga inicial com cerca de 80% dos registros e uma carga nova com o restante.
+- [x] Reconstruam o pipeline apenas com a carga inicial e anotem o número de linhas de cada camada e o resultado da Gold.
 - [ ] Acrescentem a carga nova à Bronze sem apagar a anterior e executem o pipeline de novo.
-- [ ] Garantam que registros que já estavam na Silver não sejam duplicados: definam uma chave única e removam a duplicidade ao combinar o dado novo com o antigo.
-- [ ] Executem o pipeline mais uma vez, sem nenhuma carga nova, e confirmem que nada muda.
-- [ ] Comparem a Gold final com a Gold gerada pelo pipeline sobre a base completa, de uma só vez.
+- [x] Garantam que registros que já estavam na Silver não sejam duplicados: definam uma chave única e removam a duplicidade ao combinar o dado novo com o antigo.
+- [x] Executem o pipeline mais uma vez, sem nenhuma carga nova, e confirmem que nada muda.
+- [x] Comparem a Gold final com a Gold gerada pelo pipeline sobre a base completa, de uma só vez.
 ### Perguntas de verificação (respondam no notebook)
 - [ ] **P1.** Quantas linhas cada camada tinha após a carga inicial e após a carga nova?
 - [ ] **P2.** A Gold gerada em duas cargas é igual à gerada de uma só vez? Se houver diferença, de onde ela vem?
@@ -135,7 +135,7 @@
 ## Bloco 9 | Segunda Gold e visualização
  
 ### Passos
-- [ ] Escrevam uma segunda pergunta de negócio, diferente da primeira, que possa ser respondida pela mesma Silver.
+- [x] Escrevam uma segunda pergunta de negócio, diferente da primeira, que possa ser respondida pela mesma Silver.
 - [ ] Criem a segunda tabela Gold, gravem em Parquet e em SQLite e acrescentem-na à função `load()`.
 - [ ] Construam um gráfico para cada Gold com `matplotlib`, usando o tipo adequado, com título, rótulos de eixo e unidades.
 - [ ] Salvem os gráficos como PNG na pasta `data/gold/graficos`.
@@ -150,10 +150,10 @@
 ## Bloco 10 | Parametrizar o pipeline
  
 ### Passos
-- [ ] Reúnam todos os caminhos, nomes de arquivo e parâmetros (período, filtro de escopo, tamanho de lote, se houver) em um único dicionário de configuração, no topo do notebook.
-- [ ] Troquem os valores fixos dentro das funções por valores desse dicionário.
+- [x] Reúnam todos os caminhos, nomes de arquivo e parâmetros (período, filtro de escopo, tamanho de lote, se houver) em um único dicionário de configuração, no topo do notebook.
+- [x] Troquem os valores fixos dentro das funções por valores desse dicionário.
 - [ ] Troquem os `print` por `logging`, com nível INFO para o andamento e ERROR para falhas, gravando em um arquivo `pipeline.log`.
-- [ ] Executem `pipeline()` com outro valor de parâmetro (outro período, outro filtro ou outra categoria) sem alterar nenhuma linha das funções.
+- [x] Executem `pipeline()` com outro valor de parâmetro (outro período, outro filtro ou outra categoria) sem alterar nenhuma linha das funções.
 - [ ] Confirmem no log e no histórico de execuções quais parâmetros foram usados em cada execução.
 ### Perguntas de verificação (respondam no notebook)
 - [ ] **P1.** Quantos pontos do código precisaram ser alterados para trocar o parâmetro? Se foi mais de um, o que ficou fixo dentro das funções?
@@ -165,10 +165,10 @@
 ## Bloco 11 | Documentação e reprodutibilidade
  
 ### Passos
-- [ ] Escrevam um `README.md` na raiz do projeto com: pergunta de negócio, fontes usadas, descrição de cada camada, decisões de transformação, ordem de execução e como rodar o pipeline.
-- [ ] Criem o `requirements.txt` com as bibliotecas e as versões usadas.
+- [x] Escrevam um `README.md` na raiz do projeto com: pergunta de negócio, fontes usadas, descrição de cada camada, decisões de transformação, ordem de execução e como rodar o pipeline.
+- [x] Criem o `requirements.txt` com as bibliotecas e as versões usadas.
 - [ ] Troquem a pasta do projeto, sem a pasta `data`, com outro grupo.
-- [ ] Executem o pipeline do outro grupo seguindo apenas o README e anotem cada obstáculo encontrado.
+- [x] Executem o pipeline do outro grupo seguindo apenas o README e anotem cada obstáculo encontrado.
 - [ ] Devolvam ao grupo dono uma lista de tudo o que impediu ou atrapalhou a execução.
 ### Perguntas de verificação (respondam no notebook)
 - [ ] **P1.** O pipeline do outro grupo rodou seguindo apenas o README? Que informação faltou?
@@ -179,14 +179,14 @@
  
 ## Checklist de entrega
  
-- [ ] Pergunta de negócio escrita no topo do notebook.
-- [ ] Bronze com todas as fontes, sem alteração, com metadados de extração.
+- [x] Pergunta de negócio escrita no topo do notebook.
+- [x] Bronze com todas as fontes, sem alteração, com metadados de extração.
 - [ ] Silver com as decisões documentadas no formato: *decidimos X porque Y*.
 - [ ] Duas tabelas Gold, em Parquet e em SQLite, e um gráfico para cada uma.
 - [ ] Modelo dimensional (fato e dimensões) gravado, com a soma da fato batendo com a da Silver.
-- [ ] `pipeline()` reexecutável: apaga a pasta `data`, executa e a Gold volta idêntica.
+- [x] `pipeline()` reexecutável: apaga a pasta `data`, executa e a Gold volta idêntica.
 - [ ] Carga incremental sem duplicidade de registros.
 - [ ] Configuração em um único dicionário, `pipeline.log` e histórico de execuções em CSV.
-- [ ] `README.md` e `requirements.txt` na raiz do projeto.
-- [ ] Respostas das perguntas de verificação em células de texto do notebook.
+- [x] `README.md` e `requirements.txt` na raiz do projeto.
+- [x] Respostas das perguntas de verificação em células de texto do notebook.
  
