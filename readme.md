@@ -190,3 +190,13 @@
 - [x] `README.md` e `requirements.txt` na raiz do projeto.
 - [x] Respostas das perguntas de verificação em células de texto do notebook.
  
+
+ ## 👥 Membros do grupo
+
+| Nome | GitHub | E-mail | Responsabilidade |
+|---|---|---|---|
+| Cleyton Júnior da Silva | [@cleytinho01](https://github.com/cleytinho01) | cleytonjunior0213@gmail.com |  |
+| João Paulo Tavares Kempfer | [@yAurelios](https://github.com/yAurelios) | jp.aureliostk@gmail.com | Construção inicial do pipeline, estrutura e análise de dados |
+| Miguel de Melo Berno | [@Miguel-berno](https://github.com/Miguel-berno) | Migueldemeloberno@gmail.com | Decisão da fonte dos dados|
+| Pedro Henrique Sanches dos Santos | [@SKSanches](https://github.com/SKSanches) | pedro.sanches.sant@gmail.com |  |
+| Gabriel Alex Kuhn de Oliveira | [@GabrielAlex2007](https://github.com/GabrielAlex2007) | gabriel123alexkhunoliveira@gmail.com | Desenvolvimento parcial do pipeline |
